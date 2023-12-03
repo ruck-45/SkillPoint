@@ -1,6 +1,7 @@
 // Dependencies
 
 // Local Files
+import "./Courses.css";
 
 const Courses = () => {
   return <div>Courses</div>;

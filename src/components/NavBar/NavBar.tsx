@@ -4,7 +4,6 @@ import {
   NavbarBrand,
   NavbarContent,
   NavbarItem,
-  Link,
   NavbarMenuToggle,
   NavbarMenu,
   NavbarMenuItem,
@@ -15,8 +14,8 @@ import {
   DropdownItem,
   Input,
 } from "@nextui-org/react";
-
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 // Local Files
 import "./NavBar.css";
@@ -25,11 +24,22 @@ import { SearchIcon } from "./subComponents/SearchIcon";
 
 const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState("Home");
 
-  const menuItems = ["Home", "Courses", "Profile", "About", "Help & Feedback", "Log Out"];
+  const menuItems = ["Home", "Courses", "Profile", "About", "Log Out"];
+  const navItemClass = "text-[#a1a1aa] hover:text-[#f31260] cursor-pointer";
+  const respNavItemClass =
+    "w-full text-white font-thin text-base hover:font-normal hover:text-[#f31260] cursor-pointer";
+
+  const navigate = useNavigate();
+  const changeTab = (tabName: string) => {
+    setIsMenuOpen(false);
+    setActiveTab(tabName);
+    navigate(`./${tabName}`);
+  };
 
   return (
-    <Navbar onMenuOpenChange={setIsMenuOpen} className="NavBar dark" maxWidth="xl">
+    <Navbar onMenuOpenChange={setIsMenuOpen} className="bg-[#212224]" maxWidth="xl">
       <NavbarContent>
         <NavbarMenuToggle aria-label={isMenuOpen ? "Close menu" : "Open menu"} className="sm:hidden text-white" />
         <NavbarBrand className="gap-[0.5rem]">
@@ -40,19 +50,23 @@ const NavBar = () => {
 
       <NavbarContent as="div" justify="end" className="gap-[2rem]">
         <NavbarItem className="hidden md:block">
-          <Link color="foreground" href="#">
+          <div
+            className={activeTab === "Home" ? navItemClass + " active" : navItemClass}
+            onClick={() => changeTab("Home")}
+          >
             Home
-          </Link>
+          </div>
         </NavbarItem>
         <NavbarItem className="hidden md:block">
-          <Link color="foreground" href="#">
+          <div
+            className={activeTab === "Courses" ? navItemClass + " active" : navItemClass}
+            onClick={() => changeTab("Courses")}
+          >
             Courses
-          </Link>
+          </div>
         </NavbarItem>
         <NavbarItem className="hidden md:block">
-          <Link color="foreground" href="#">
-            About
-          </Link>
+          <p className="text-[#a1a1aa] hover:text-[#f31260] cursor-pointer">About</p>
         </NavbarItem>
         <Input
           classNames={{
@@ -80,38 +94,51 @@ const NavBar = () => {
           </DropdownTrigger>
 
           <DropdownMenu aria-label="Profile Actions" variant="flat">
-            <DropdownItem key="profile" className="h-14 gap-2">
+            <DropdownItem key="email" className="h-14 gap-2">
               <p className="font-semibold">Signed in as</p>
               <p className="font-semibold">zoey@example.com</p>
             </DropdownItem>
-            <DropdownItem key="home" className="hidden sm:block md:hidden">
-              Home
+            <DropdownItem key="home" className="hidden sm:block md:hidden p-0" textValue="home">
+              <div style={{ display: "block", padding: "6px 8px" }} onClick={() => changeTab("Home")}>
+                Home
+              </div>
             </DropdownItem>
-            <DropdownItem key="courses" className="hidden sm:block md:hidden">
-              Courses
+            <DropdownItem key="courses" className="hidden sm:block md:hidden p-0" textValue="courses">
+              <div style={{ display: "block", padding: "6px 8px" }} onClick={() => changeTab("Courses")}>
+                Courses
+              </div>
             </DropdownItem>
-            <DropdownItem key="about" className="hidden sm:block md:hidden">
+            <DropdownItem key="about" className="hidden sm:block md:hidden" textValue="about">
               About
             </DropdownItem>
-            <DropdownItem key="profile">My Profile</DropdownItem>
-            <DropdownItem key="logout" color="danger">
+            <DropdownItem key="profile" className="hidden sm:block md:hidden p-0" textValue="profile">
+              <div style={{ display: "block", padding: "6px 8px" }} onClick={() => changeTab("Profile")}>
+                My Profile
+              </div>
+            </DropdownItem>
+            <DropdownItem key="logout" color="danger" textValue="logout">
               Log Out
             </DropdownItem>
           </DropdownMenu>
         </Dropdown>
       </NavbarContent>
 
-      <NavbarMenu>
+      <NavbarMenu className="bg-[#28292b]">
         {menuItems.map((item, index) => (
           <NavbarMenuItem key={`${item}-${index}`}>
-            <Link
-              color={index === 2 ? "primary" : index === menuItems.length - 1 ? "danger" : "foreground"}
-              className="w-full"
-              href="#"
-              size="lg"
-            >
-              {item}
-            </Link>
+            <div className={activeTab === item ? respNavItemClass + " respActive" : respNavItemClass}>
+              <div
+                onClick={() => {
+                  if (item === "Home" || item === "Profile" || item === "Courses") {
+                    changeTab(item);
+                  } else {
+                    changeTab("Home");
+                  }
+                }}
+              >
+                {item}
+              </div>
+            </div>
           </NavbarMenuItem>
         ))}
       </NavbarMenu>
