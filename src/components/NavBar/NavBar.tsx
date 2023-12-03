@@ -16,21 +16,18 @@ import {
 } from "@nextui-org/react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { RootState } from "../../store";
 
 // Local Files
 import "./NavBar.css";
 import logo from "./assets/logo.svg";
 import { SearchIcon } from "./subComponents/SearchIcon";
-import { changeTab } from "./activeTabSlice";
 
 const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const activeTab = useSelector((state: RootState) => state.activeTab.value);
-  console.log(activeTab);
-  const dispatch = useDispatch();
 
   const menuItems = ["Home", "Courses", "Profile", "About", "Log Out"];
   const navItemClass = "text-[#a1a1aa] hover:text-[#f31260] cursor-pointer";
@@ -40,7 +37,6 @@ const NavBar = () => {
   const navigate = useNavigate();
   const changeNavTab = (tabName: string) => {
     setIsMenuOpen(false);
-    dispatch(changeTab(tabName));
     navigate(`./${tabName}`);
   };
 

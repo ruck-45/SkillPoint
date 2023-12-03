@@ -13,7 +13,7 @@ import {
 import { FaGraduationCap } from "react-icons/fa";
 import { FaClock } from "react-icons/fa6";
 
-const data = [1, 2, 3,4];
+const data = [1, 2, 3, 4];
 
 const CourseLibraryCard = () => {
   return (
