@@ -13,7 +13,6 @@ import {
 import { FaGraduationCap } from "react-icons/fa";
 import { FaClock } from "react-icons/fa6";
 
-// Local Files
 const data = [1, 2, 3,4];
 
 const CourseLibraryCard = () => {
@@ -30,7 +29,7 @@ const CourseLibraryCard = () => {
       <TableBody>
         {data.map((ele) => {
           return (
-            <TableRow key={ele}>
+            <TableRow key={ele} className="cursor-pointer hover:scale-[1.02] duration-[200ms] ease-in-out">
               <TableCell className="w-[7rem]">
                 <div
                   className="relative w-[100%] pb-[100%] overflow-hidden"

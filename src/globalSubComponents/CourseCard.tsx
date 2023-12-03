@@ -2,8 +2,6 @@
 import { Card, CardBody, CardFooter, Chip } from "@nextui-org/react";
 import { FaGraduationCap } from "react-icons/fa";
 
-// Local Files
-
 type CourseCardProps = {
   className?: string;
 };

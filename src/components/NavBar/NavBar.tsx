@@ -16,15 +16,21 @@ import {
 } from "@nextui-org/react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "../../store";
 
 // Local Files
 import "./NavBar.css";
 import logo from "./assets/logo.svg";
 import { SearchIcon } from "./subComponents/SearchIcon";
+import { changeTab } from "./activeTabSlice";
 
 const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState("Home");
+
+  const activeTab = useSelector((state: RootState) => state.activeTab.value);
+  console.log(activeTab);
+  const dispatch = useDispatch();
 
   const menuItems = ["Home", "Courses", "Profile", "About", "Log Out"];
   const navItemClass = "text-[#a1a1aa] hover:text-[#f31260] cursor-pointer";
@@ -32,9 +38,9 @@ const NavBar = () => {
     "w-full text-white font-thin text-base hover:font-normal hover:text-[#f31260] cursor-pointer";
 
   const navigate = useNavigate();
-  const changeTab = (tabName: string) => {
+  const changeNavTab = (tabName: string) => {
     setIsMenuOpen(false);
-    setActiveTab(tabName);
+    dispatch(changeTab(tabName));
     navigate(`./${tabName}`);
   };
 
@@ -52,7 +58,7 @@ const NavBar = () => {
         <NavbarItem className="hidden md:block">
           <div
             className={activeTab === "Home" ? navItemClass + " active" : navItemClass}
-            onClick={() => changeTab("Home")}
+            onClick={() => changeNavTab("Home")}
           >
             Home
           </div>
@@ -60,7 +66,7 @@ const NavBar = () => {
         <NavbarItem className="hidden md:block">
           <div
             className={activeTab === "Courses" ? navItemClass + " active" : navItemClass}
-            onClick={() => changeTab("Courses")}
+            onClick={() => changeNavTab("Courses")}
           >
             Courses
           </div>
@@ -99,20 +105,20 @@ const NavBar = () => {
               <p className="font-semibold">zoey@example.com</p>
             </DropdownItem>
             <DropdownItem key="home" className="hidden sm:block md:hidden p-0" textValue="home">
-              <div style={{ display: "block", padding: "6px 8px" }} onClick={() => changeTab("Home")}>
+              <div style={{ display: "block", padding: "6px 8px" }} onClick={() => changeNavTab("Home")}>
                 Home
               </div>
             </DropdownItem>
             <DropdownItem key="courses" className="hidden sm:block md:hidden p-0" textValue="courses">
-              <div style={{ display: "block", padding: "6px 8px" }} onClick={() => changeTab("Courses")}>
+              <div style={{ display: "block", padding: "6px 8px" }} onClick={() => changeNavTab("Courses")}>
                 Courses
               </div>
             </DropdownItem>
             <DropdownItem key="about" className="hidden sm:block md:hidden" textValue="about">
               About
             </DropdownItem>
-            <DropdownItem key="profile" className="hidden sm:block md:hidden p-0" textValue="profile">
-              <div style={{ display: "block", padding: "6px 8px" }} onClick={() => changeTab("Profile")}>
+            <DropdownItem key="profile" className="p-0" textValue="profile">
+              <div style={{ display: "block", padding: "6px 8px" }} onClick={() => changeNavTab("Profile")}>
                 My Profile
               </div>
             </DropdownItem>
@@ -130,9 +136,9 @@ const NavBar = () => {
               <div
                 onClick={() => {
                   if (item === "Home" || item === "Profile" || item === "Courses") {
-                    changeTab(item);
+                    changeNavTab(item);
                   } else {
-                    changeTab("Home");
+                    changeNavTab("Home");
                   }
                 }}
               >
