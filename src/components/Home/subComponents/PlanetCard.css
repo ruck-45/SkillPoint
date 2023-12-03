@@ -1,0 +1,6 @@
+.PlanetCard {
+  background-image: url("../assets/planet.jpg");
+  background-repeat: no-repeat;
+  background-position: left center;
+  background-size: cover;
+}

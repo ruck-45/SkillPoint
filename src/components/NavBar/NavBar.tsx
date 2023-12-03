@@ -39,7 +39,7 @@ const NavBar = () => {
   };
 
   return (
-    <Navbar onMenuOpenChange={setIsMenuOpen} className="bg-[#212224]" maxWidth="xl">
+    <Navbar onMenuOpenChange={setIsMenuOpen} className="bg-[#212224] h-[6rem]" maxWidth="xl">
       <NavbarContent>
         <NavbarMenuToggle aria-label={isMenuOpen ? "Close menu" : "Open menu"} className="sm:hidden text-white" />
         <NavbarBrand className="gap-[0.5rem]">
@@ -123,7 +123,7 @@ const NavBar = () => {
         </Dropdown>
       </NavbarContent>
 
-      <NavbarMenu className="bg-[#28292b]">
+      <NavbarMenu className="bg-[#28292b] my-[2rem]">
         {menuItems.map((item, index) => (
           <NavbarMenuItem key={`${item}-${index}`}>
             <div className={activeTab === item ? respNavItemClass + " respActive" : respNavItemClass}>
