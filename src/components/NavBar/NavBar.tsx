@@ -23,6 +23,7 @@ import { RootState } from "../../store";
 import "./NavBar.css";
 import logo from "./assets/logo.svg";
 import { SearchIcon } from "./subComponents/SearchIcon";
+import profileImg from "../../globalAssets/profile.jpg";
 
 const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -70,6 +71,14 @@ const NavBar = () => {
         <NavbarItem className="hidden md:block">
           <p className="text-[#a1a1aa] hover:text-[#f31260] cursor-pointer">About</p>
         </NavbarItem>
+        <NavbarItem className="hidden md:block">
+          <div
+            className={activeTab === "Profile" ? navItemClass + " active" : navItemClass}
+            onClick={() => changeNavTab("Profile")}
+          >
+            Profile
+          </div>
+        </NavbarItem>
         <Input
           classNames={{
             base: "max-w-full sm:max-w-[10rem] h-10",
@@ -91,7 +100,7 @@ const NavBar = () => {
               color="danger"
               name="Jason Hughes"
               size="sm"
-              src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
+              src={profileImg}
             />
           </DropdownTrigger>
 

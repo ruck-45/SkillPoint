@@ -3,7 +3,9 @@ import { Button } from "@nextui-org/react";
 import { useNavigate } from "react-router-dom";
 
 // Local Files
-import CourseLibraryCard from "../../../globalSubComponents/CourseLibraryCard";
+import CourseLibraryCard from "./CourseLibraryCard";
+
+const data = [1, 2, 3, 4];
 
 const PersonalCourseLib = () => {
   const navigate = useNavigate();
@@ -14,12 +16,12 @@ const PersonalCourseLib = () => {
         <span>Your Course </span>
         <span className="text-[#f31260]"> Library</span>
       </h1>
-      <CourseLibraryCard />
+      <CourseLibraryCard data={data} />
       <Button
         color="danger"
         className="max-w-[8rem] font-semibold relative bottom-[-20px] left-[50%] translate-x-[-50%]"
         variant="shadow"
-        onClick={() => navigate(`../Profile`)}
+        onClick={() => navigate(`../Userlib`)}
         radius="full"
       >
         View Library

@@ -13,11 +13,13 @@ import {
 import { FaGraduationCap } from "react-icons/fa";
 import { FaClock } from "react-icons/fa6";
 
-const data = [1, 2, 3, 4];
+type CourseLibraryCardProps = {
+  data: number[];
+};
 
-const CourseLibraryCard = () => {
+const CourseLibraryCard = (props: CourseLibraryCardProps) => {
   return (
-    <Table hideHeader removeWrapper isStriped className="dark">
+    <Table hideHeader removeWrapper isStriped className="dark" aria-label="Course-library">
       <TableHeader>
         <TableColumn>Image</TableColumn>
         <TableColumn>Name</TableColumn>
@@ -27,7 +29,7 @@ const CourseLibraryCard = () => {
         <TableColumn>Complete</TableColumn>
       </TableHeader>
       <TableBody>
-        {data.map((ele) => {
+        {props.data.map((ele) => {
           return (
             <TableRow key={ele} className="cursor-pointer hover:scale-[1.02] duration-[200ms] ease-in-out">
               <TableCell className="w-[7rem]">

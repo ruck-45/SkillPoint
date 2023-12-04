@@ -4,12 +4,17 @@ import { useDispatch } from "react-redux";
 // Local Files
 import PlanetCard from "./subComponents/PlanetCard";
 import PopularCoursesCard from "./subComponents/PopularCoursesCard";
-import PersonalCourseLib from "./subComponents/PersonalCourseLib";
+import PersonalCourseLib from "../../globalSubComponents/PersonalCourseLib";
 import { changeTab } from "../NavBar/activeTabSlice";
 
 const Home = () => {
   const dispatch = useDispatch();
   dispatch(changeTab("Home"));
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
 
   return (
     <div className="px-[5%] bg-[#212224]">

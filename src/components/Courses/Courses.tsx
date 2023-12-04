@@ -3,7 +3,6 @@ import { useDispatch } from "react-redux";
 import { Pagination } from "@nextui-org/react";
 
 // Local Files
-import "./Courses.css";
 import { changeTab } from "../NavBar/activeTabSlice";
 import CourseCard from "../../globalSubComponents/CourseCard";
 
@@ -13,6 +12,11 @@ const data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 const Courses = () => {
   const dispatch = useDispatch();
   dispatch(changeTab("Courses"));
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
 
   return (
     <div className="px-[5%] bg-[#212224]">
