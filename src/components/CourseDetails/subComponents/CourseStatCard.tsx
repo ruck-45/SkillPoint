@@ -1,0 +1,67 @@
+// Dependencies
+import { FaClock, FaLocationDot } from "react-icons/fa6";
+import { CgCalendarDates } from "react-icons/cg";
+import { PiTimerFill } from "react-icons/pi";
+import {
+  Table,
+  TableBody,
+  TableHeader,
+  TableColumn,
+  TableRow,
+  TableCell,
+} from "@nextui-org/react";
+
+const CourseStatCard = () => {
+  return (
+    <Table hideHeader removeWrapper isStriped className="dark" aria-label="Course-library">
+      <TableHeader>
+        <TableColumn>Location</TableColumn>
+        <TableColumn>Duration</TableColumn>
+        <TableColumn>Schedule</TableColumn>
+        <TableColumn>Time</TableColumn>
+      </TableHeader>
+      <TableBody>
+        <TableRow>
+          <TableCell>
+            <div className="flex flex-col items-center">
+              <div className="flex gap-[0.3rem]">
+                <FaLocationDot className="text-default-500 text-xl" />
+                <b className="text-white">Location</b>
+              </div>
+              <span className="text-default-500 max-w-[10rem]">Online</span>
+            </div>
+          </TableCell>
+          <TableCell>
+            <div className="flex flex-col items-center">
+              <div className="flex gap-[0.3rem]">
+                <FaClock className="text-default-500 text-xl" />
+                <b className="text-white">Duration</b>
+              </div>
+              <span className="text-default-500 max-w-[10rem]">6 Weeks</span>
+            </div>
+          </TableCell>
+          <TableCell>
+            <div className="flex flex-col items-center">
+              <div className="flex gap-[0.3rem]">
+                <CgCalendarDates className="text-default-500 text-xl" />
+                <b className="text-white">Schedule</b>
+              </div>
+              <span className="text-default-500 max-w-[10rem]">Tuesdays & Thursdays</span>
+            </div>
+          </TableCell>
+          <TableCell>
+            <div className="flex flex-col items-center">
+              <div className="flex gap-[0.3rem]">
+                <PiTimerFill className="text-default-500 text-xl" />
+                <b className="text-white">Time</b>
+              </div>
+              <span className="text-default-500 max-w-[10rem]">6:00 PM - 8:00 PM</span>
+            </div>
+          </TableCell>
+        </TableRow>
+      </TableBody>
+    </Table>
+  );
+}
+
+export default CourseStatCard

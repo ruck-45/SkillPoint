@@ -1,6 +1,8 @@
 // Dependencies
 import { Card, CardBody, CardFooter, Chip } from "@nextui-org/react";
 import { FaGraduationCap } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+
 
 type CourseCardProps = {
   className?: string;
@@ -8,8 +10,14 @@ type CourseCardProps = {
 
 const CourseCard = (props: CourseCardProps) => {
   const className = "dark bg-[#28292b] " + props.className;
+  const navigate = useNavigate();
+
+  const showDetails = () => {
+    navigate(`../CourseDetails`);
+  };
+
   return (
-    <Card shadow="sm" isPressable className={className}>
+    <Card shadow="sm" isPressable className={className} onClick={showDetails}>
       <CardBody className="overflow-visible p-5 pb-3 items-center">
         <div
           className="relative w-[100%] pb-[75%] overflow-hidden"
@@ -31,7 +39,9 @@ const CourseCard = (props: CourseCardProps) => {
         </div>
         <div className="flex justify-between w-[80%]">
           <Chip variant="flat">6 Weeks</Chip>
-          <Chip color="success" variant="flat">Open</Chip>
+          <Chip color="success" variant="flat">
+            Open
+          </Chip>
         </div>
       </CardFooter>
     </Card>

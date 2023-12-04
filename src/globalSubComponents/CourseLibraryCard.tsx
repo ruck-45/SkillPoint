@@ -12,12 +12,19 @@ import {
 } from "@nextui-org/react";
 import { FaGraduationCap } from "react-icons/fa";
 import { FaClock } from "react-icons/fa6";
+import { useNavigate } from "react-router-dom";
 
 type CourseLibraryCardProps = {
   data: number[];
 };
 
 const CourseLibraryCard = (props: CourseLibraryCardProps) => {
+  const navigate = useNavigate();
+
+  const showDetails = () => {
+    navigate(`../CourseDetails`);
+  };
+
   return (
     <Table hideHeader removeWrapper isStriped className="dark" aria-label="Course-library">
       <TableHeader>
@@ -31,7 +38,11 @@ const CourseLibraryCard = (props: CourseLibraryCardProps) => {
       <TableBody>
         {props.data.map((ele) => {
           return (
-            <TableRow key={ele} className="cursor-pointer hover:scale-[1.02] duration-[200ms] ease-in-out">
+            <TableRow
+              key={ele}
+              className="cursor-pointer hover:scale-[1.02] duration-[200ms] ease-in-out"
+              onClick={showDetails}
+            >
               <TableCell className="w-[7rem]">
                 <div
                   className="relative w-[100%] pb-[100%] overflow-hidden"
