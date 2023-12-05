@@ -3,17 +3,22 @@ import { Card, CardBody, CardFooter, Chip } from "@nextui-org/react";
 import { FaGraduationCap } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
-
 type CourseCardProps = {
   className?: string;
+  id: number;
+  name: string;
+  instructor: string;
+  thumbnail: string;
+  duration: string;
+  enrollmentStatus: string;
 };
 
 const CourseCard = (props: CourseCardProps) => {
-  const className = "dark bg-[#28292b] " + props.className;
+  const className = "dark bg-[#28292b]" + props.className;
   const navigate = useNavigate();
 
   const showDetails = () => {
-    navigate(`../CourseDetails`);
+    navigate(`../CourseDetails`, { state: { ...props } });
   };
 
   return (
@@ -24,7 +29,7 @@ const CourseCard = (props: CourseCardProps) => {
           style={{ boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.3)" }}
         >
           <img
-            src="https://coderpad.io/wp-content/uploads/2022/09/coderpad-blogpost-python-red-1.png"
+            src={props.thumbnail}
             className="rounded-xl absolute top-[0] left-[0] object-cover h-[100%] w-[100%]"
             alt=""
             style={{ boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.5)" }}
@@ -32,15 +37,24 @@ const CourseCard = (props: CourseCardProps) => {
         </div>
       </CardBody>
       <CardFooter className="text-small justify-between flex-col pt-0 gap-[0.5rem]">
-        <b className="max-w-[12rem]">Python Programming Basics</b>
+        <b className="w-[12rem]">{props.name}</b>
         <div className="flex text-default-500 gap-[0.3rem]">
           <FaGraduationCap className="text-xl" />
-          <span className="max-w-[10rem]">Jonnathan nolan</span>
+          <span className="max-w-[10rem]">{props.instructor}</span>
         </div>
         <div className="flex justify-between w-[80%]">
-          <Chip variant="flat">6 Weeks</Chip>
-          <Chip color="success" variant="flat">
-            Open
+          <Chip variant="flat">{props.duration}</Chip>
+          <Chip
+            color={
+              props.enrollmentStatus === "Open"
+                ? "success"
+                : props.enrollmentStatus === "Closing"
+                ? "warning"
+                : "danger"
+            }
+            variant="flat"
+          >
+            {props.enrollmentStatus}
           </Chip>
         </div>
       </CardFooter>

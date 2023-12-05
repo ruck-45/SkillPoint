@@ -1,10 +1,25 @@
 // Dependencies
 import { Card, CardHeader, CardBody, Chip, Listbox, ListboxItem } from "@nextui-org/react";
+import { useSelector } from "react-redux";
 
 // Local Files
 import "./UserStat.css";
+import { RootState } from "../../../store";
 
 const UserStat = () => {
+  const userData = useSelector((state: RootState) => state.userData.value);
+
+  let completedCourses = 0;
+  let ongoingCourses = 0;
+
+  for (let data of userData.courses) {
+    if (data.progress < 100) {
+      ongoingCourses++;
+    } else {
+      completedCourses++;
+    }
+  }
+
   return (
     <div className="flex justify-between">
       <div className="h-[22rem] w-[22rem] rounded-3xl profilePic"></div>
@@ -15,16 +30,12 @@ const UserStat = () => {
             <Chip color="success" variant="dot" className="my-4">
               Online
             </Chip>
-            <p className="text-md">Zoey Gabrielle Turner</p>
-            <p className="text-small text-default-500">student</p>
+            <p className="text-md">{userData.name}</p>
+            <p className="text-small text-default-500">{userData.profession}</p>
           </div>
         </CardHeader>
         <CardBody>
-          <p className="text-default-500">
-            Web development student, Problem solver, and Tech Enthusiast. Passionate about creating digital experiences.
-            Explores trends, attends meetups, and contributes to open-source projects. Believes in tech's power to
-            connect people. Excited to make a mark!
-          </p>
+          <p className="text-default-500">{userData.bio}</p>
         </CardBody>
       </Card>
 
@@ -32,25 +43,25 @@ const UserStat = () => {
         <ListboxItem showDivider key="Courses Completed">
           <div className="flex justify-between h-[3.3rem] items-center">
             <p className="text-white font-semibold">Courses Completed</p>
-            <p className="text-[#F31260] font-bold">33</p>
+            <p className="text-[#F31260] font-bold">{completedCourses}</p>
           </div>
         </ListboxItem>
         <ListboxItem showDivider key="Ongoing Courses">
           <div className="flex justify-between h-[3.3rem] items-center">
             <p className="text-white font-semibold">Ongoing Courses</p>
-            <p className="text-[#F31260] font-bold">6</p>
+            <p className="text-[#F31260] font-bold">{ongoingCourses}</p>
           </div>
         </ListboxItem>
         <ListboxItem showDivider key="Friends Online">
           <div className="flex justify-between h-[3.3rem] items-center">
             <p className="text-white font-semibold">Friends Online</p>
-            <p className="text-[#F31260] font-bold">5</p>
+            <p className="text-[#F31260] font-bold">{userData.friendsOnline}</p>
           </div>
         </ListboxItem>
         <ListboxItem key="Friends Online">
           <div className="flex justify-between h-[3.3rem] items-center">
             <p className="text-white font-semibold">Leaderboard Rank</p>
-            <p className="text-[#F31260] font-bold">1526</p>
+            <p className="text-[#F31260] font-bold">{userData.rank}</p>
           </div>
         </ListboxItem>
       </Listbox>

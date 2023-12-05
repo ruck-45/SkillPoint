@@ -14,21 +14,26 @@ import {
   DropdownItem,
   Input,
 } from "@nextui-org/react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { RootState } from "../../store";
+import { useSelector, useDispatch } from "react-redux";
 
 // Local Files
 import "./NavBar.css";
 import logo from "./assets/logo.svg";
 import { SearchIcon } from "./subComponents/SearchIcon";
 import profileImg from "../../globalAssets/profile.jpg";
+import { RootState } from "../../store";
+import { setUserData } from "../../userDataSlice";
+import { addLibraryCourse } from "../../userLibrarySilce";
+import { addRecentCourse } from "../../recentCourseSlice";
 
 const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const activeTab = useSelector((state: RootState) => state.activeTab.value);
+  const userLibrary = useSelector((state: RootState) => state.userLibrary.value);
+  const userData = useSelector((state: RootState) => state.userData.value);
 
   const menuItems = ["Home", "Courses", "Profile", "About", "Log Out"];
   const navItemClass = "text-[#a1a1aa] hover:text-[#f31260] cursor-pointer";
@@ -40,6 +45,39 @@ const NavBar = () => {
     setIsMenuOpen(false);
     navigate(`./${tabName}`);
   };
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    fetch(process.env.REACT_APP_PROXY + `/api/users/getUser/${process.env.REACT_APP_USER}`)
+      .then((res) => res.json())
+      .then((data) => {
+        dispatch(setUserData(data));
+        return data;
+      })
+      .then((UserData) => {
+        UserData.courses.map((data: { id: number; progress: number }) => {
+          fetch(process.env.REACT_APP_PROXY + `/api/courses/getCourse/${data.id}`)
+            .then((res) => res.json())
+            .then((info) => {
+              const libData = { ...info, progress: data.progress };
+              dispatch(addLibraryCourse(libData));
+              return libData;
+            })
+            .then((libData) => {
+              if (libData.progress < 100) {
+                dispatch(addRecentCourse(libData));
+              }
+            })
+            .catch((err) => {
+              throw new Error(err);
+            });
+        });
+      })
+      .catch((err) => {
+        throw new Error(err);
+      });
+  }, []);
 
   return (
     <Navbar onMenuOpenChange={setIsMenuOpen} className="bg-[#212224] h-[6rem]" maxWidth="xl">
@@ -107,7 +145,7 @@ const NavBar = () => {
           <DropdownMenu aria-label="Profile Actions" variant="flat">
             <DropdownItem key="email" className="h-14 gap-2">
               <p className="font-semibold">Signed in as</p>
-              <p className="font-semibold">zoey@example.com</p>
+              <p className="font-semibold">{userData.email}</p>
             </DropdownItem>
             <DropdownItem key="home" className="hidden sm:block md:hidden p-0" textValue="home">
               <div style={{ display: "block", padding: "6px 8px" }} onClick={() => changeNavTab("Home")}>

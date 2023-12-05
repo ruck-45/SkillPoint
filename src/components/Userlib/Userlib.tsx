@@ -1,20 +1,16 @@
 // Dependencies
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 // Local Files
 import { changeTab } from "../NavBar/activeTabSlice";
 import CourseLibraryCard from "../../globalSubComponents/CourseLibraryCard";
-
-const data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
+import { RootState } from "../../store";
 
 const Userlib = () => {
+  const userLibrary = useSelector((state: RootState) => state.userLibrary.value);
   const dispatch = useDispatch();
-  dispatch(changeTab("Userlib"));
 
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth",
-  });
+  dispatch(changeTab("Userlib"));
 
   return (
     <div className="px-[5%] bg-[#212224]">
@@ -25,7 +21,7 @@ const Userlib = () => {
               <span>Your Course </span>
               <span className="text-[#f31260]"> Library</span>
             </h1>
-            <CourseLibraryCard data={data} />
+            <CourseLibraryCard libraryData={userLibrary} />
           </div>
         </div>
       </div>

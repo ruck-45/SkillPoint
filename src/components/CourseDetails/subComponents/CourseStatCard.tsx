@@ -2,16 +2,16 @@
 import { FaClock, FaLocationDot } from "react-icons/fa6";
 import { CgCalendarDates } from "react-icons/cg";
 import { PiTimerFill } from "react-icons/pi";
-import {
-  Table,
-  TableBody,
-  TableHeader,
-  TableColumn,
-  TableRow,
-  TableCell,
-} from "@nextui-org/react";
+import { Table, TableBody, TableHeader, TableColumn, TableRow, TableCell } from "@nextui-org/react";
 
-const CourseStatCard = () => {
+type CourseStatCardProps = {
+  location: string;
+  duration: string;
+  schedule: string;
+  time: string;
+};
+
+const CourseStatCard = (props: CourseStatCardProps) => {
   return (
     <Table hideHeader removeWrapper isStriped className="dark" aria-label="Course-library">
       <TableHeader>
@@ -28,7 +28,7 @@ const CourseStatCard = () => {
                 <FaLocationDot className="text-default-500 text-xl" />
                 <b className="text-white">Location</b>
               </div>
-              <span className="text-default-500 max-w-[10rem]">Online</span>
+              <span className="text-default-500 max-w-[10rem]">{props.location}</span>
             </div>
           </TableCell>
           <TableCell>
@@ -37,7 +37,7 @@ const CourseStatCard = () => {
                 <FaClock className="text-default-500 text-xl" />
                 <b className="text-white">Duration</b>
               </div>
-              <span className="text-default-500 max-w-[10rem]">6 Weeks</span>
+              <span className="text-default-500 max-w-[10rem]">{props.duration}</span>
             </div>
           </TableCell>
           <TableCell>
@@ -46,7 +46,7 @@ const CourseStatCard = () => {
                 <CgCalendarDates className="text-default-500 text-xl" />
                 <b className="text-white">Schedule</b>
               </div>
-              <span className="text-default-500 max-w-[10rem]">Tuesdays & Thursdays</span>
+              <span className="text-default-500 max-w-[10rem]">{props.schedule}</span>
             </div>
           </TableCell>
           <TableCell>
@@ -55,13 +55,13 @@ const CourseStatCard = () => {
                 <PiTimerFill className="text-default-500 text-xl" />
                 <b className="text-white">Time</b>
               </div>
-              <span className="text-default-500 max-w-[10rem]">6:00 PM - 8:00 PM</span>
+              <span className="text-default-500 max-w-[10rem]">{props.time}</span>
             </div>
           </TableCell>
         </TableRow>
       </TableBody>
     </Table>
   );
-}
+};
 
-export default CourseStatCard
+export default CourseStatCard;

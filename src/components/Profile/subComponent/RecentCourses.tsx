@@ -1,11 +1,12 @@
 // Dependencies
+import { useSelector } from "react-redux";
 
 // Local Files
 import CourseCard from "../../../globalSubComponents/CourseCard";
-
-const data = [1, 2, 3, 4, 5];
+import { RootState } from "../../../store";
 
 const RecentCourses = () => {
+  const recentCourses = useSelector((state: RootState) => state.recentCourse.value).slice(0, 5);
 
   return (
     <div className="rounded-3xl flex flex-col gap-[2rem] bg-[#212224]">
@@ -14,8 +15,19 @@ const RecentCourses = () => {
         <span className="text-[#f31260]"> Courses</span>
       </h1>
       <div className="flex gap-[1.5rem] justify-center flex-wrap">
-        {data.map((ele) => {
-          return <CourseCard key={ele} className="shrink-0 hover:scale-105" />;
+        {recentCourses.map((data, index) => {
+          return (
+            <CourseCard
+              key={index}
+              id={data.id}
+              className="shrink-0 hover:scale-105"
+              name={data.name}
+              instructor={data.instructor}
+              enrollmentStatus={data.enrollmentStatus}
+              thumbnail={data.thumbnail}
+              duration={data.duration}
+            />
+          );
         })}
       </div>
     </div>
