@@ -27,12 +27,12 @@ import { RootState } from "../../store";
 import { setUserData } from "../../userDataSlice";
 import { addLibraryCourse } from "../../userLibrarySilce";
 import { addRecentCourse } from "../../recentCourseSlice";
+import { setSearchData, toggleSearch } from "../../searchDataSlice";
 
 const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const activeTab = useSelector((state: RootState) => state.activeTab.value);
-  const userLibrary = useSelector((state: RootState) => state.userLibrary.value);
   const userData = useSelector((state: RootState) => state.userData.value);
 
   const menuItems = ["Home", "Courses", "Profile", "About", "Log Out"];
@@ -47,6 +47,13 @@ const NavBar = () => {
   };
 
   const dispatch = useDispatch();
+
+  const searchUp = (val: React.KeyboardEvent<HTMLInputElement> | KeyboardEvent) => {
+    if (val.key === "Enter") {
+      dispatch(toggleSearch(true));
+      navigate("./Courses");
+    }
+  };
 
   useEffect(() => {
     fetch(process.env.REACT_APP_PROXY + `/api/users/getUser/${process.env.REACT_APP_USER}`)
@@ -128,6 +135,8 @@ const NavBar = () => {
           size="sm"
           startContent={<SearchIcon size={18} />}
           type="search"
+          onKeyDown={searchUp}
+          onChange={(ele) => dispatch(setSearchData(ele.target.value))}
         />
         <Dropdown placement="bottom-end">
           <DropdownTrigger className="shrink-0">

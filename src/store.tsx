@@ -4,6 +4,7 @@ import courseDataReducer from "./courseDataSlice";
 import userDataReducer from "./userDataSlice";
 import userLibraryReducer from "./userLibrarySilce";
 import recentCourseReducer from "./recentCourseSlice";
+import searchDataReducer from "./searchDataSlice";
 
 const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ const store = configureStore({
     userData: userDataReducer,
     userLibrary: userLibraryReducer,
     recentCourse: recentCourseReducer,
+    searchData: searchDataReducer,
   },
 });
 
